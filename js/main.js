@@ -28,4 +28,4 @@ const getRandomFloat = function (min, max, float) {
   return 'Диапазон может быть только положительный, включая ноль!';
 };
 
-getRandomFloat (0, 6);
+getRandomFloat (0, 6, 2);

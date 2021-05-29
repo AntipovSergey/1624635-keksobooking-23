@@ -1,5 +1,5 @@
 //Для написания данной функции воспользовался кодом с сайта MDN
-const getRandomInteger = function (min, max) {
+const getRandomInteger = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   if (max <= min) {
@@ -15,7 +15,7 @@ const getRandomInteger = function (min, max) {
 getRandomInteger (0, 6);
 
 //Для написания данной функции воспользовался кодом с сайта MDN
-const getRandomFloat = function (min, max, float) {
+const getRandomFloat = (min, max, float) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   if (max <= min) {

@@ -30,6 +30,8 @@ getRandomFloat (0, 6, 2);
 
 //Задание 4-го раздела
 
+const NUM_POOL = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
 const TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 
 const CHECK_IN = ['12:00', '13:00', '14:00'];
@@ -42,6 +44,12 @@ const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
 
 const SIMILAR_ADVIRTISMENTS = 10;
 
+//Код функции по получению уникальных значений, в которых отсутствуют повторы, взят с сайта https://habr.com/ru/company/ruvds/blog/534108/
+const shuffle = (array) => {
+  for(let j, x, i = array.length; i; j = parseInt(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
+  return array;
+};
+const randomResult = shuffle(NUM_POOL);
 
 //Функция, выбирающая случайный элемент из массива
 const getRandomArrayElement = (elements) => {
@@ -58,7 +66,7 @@ const createArr = ([...source], maxLength) => Array.from(
 const createAdvertisment = () => {
   return {
     author: {
-      avatar: 'img/avatars/user' + 0 + getRandomInteger (1, 8) + '.png',
+      avatar: 'img/avatars/user' + 0 +  randomResult.pop() + '.png',
     },
     offer: {
       title: 'Объявление о сдаче помещения',

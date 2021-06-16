@@ -35,7 +35,6 @@ const createAdvertisement = () => ({
 });
 
 //Создаем 10 объявлений
-const similarAdvertisments = new Array(data.SIMILAR_ADVERTISEMENTS).fill(null).map(() => createAdvertisement());
+const createAdvertisements = () => new Array(data.SIMILAR_ADVERTISEMENTS).fill(null).map(() => createAdvertisement());
 
-// eslint-disable-next-line no-console
-console.log(similarAdvertisments);
+export{createAdvertisements};

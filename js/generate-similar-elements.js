@@ -7,7 +7,7 @@ const similarAdvertisementTemplate = document.querySelector('#card')
 
 const similarAdvertisements = createAdvertisements();
 
-console.log(similarAdvertisements);
+//console.log(similarAdvertisements);
 
 const similarAdvertisementsFragment = document.createDocumentFragment();
 
@@ -25,16 +25,21 @@ const getValueTypeOffer = function (type) {
 
 similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}}) => {
   const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
-  const photoList = photos.map((photo) => {
-    const newPhoto = document.createElement('img');
-    newPhoto.classList.add('popup__photo');
-    newPhoto.src = photo;
-    newPhoto.width = '45';
-    newPhoto.height = '40';
-    newPhoto.alt = 'Фотография жилья';
-    return newPhoto;
-  });
-  console.log(photoList)
+  // Фоточки
+  const offerPhotos = advertisementElement.querySelector('.popup__photos');
+  const createPopupImage = (photos, offerPhotos) => {
+    if (photos) {
+      photos.forEach((photo) => {
+        const newPhoto = document.createElement('img');
+        newPhoto.classList.add('popup__photo');
+        newPhoto.src = photo;
+        newPhoto.width = '45';
+        newPhoto.height = '40';
+        newPhoto.alt = 'Фотография жилья';
+        offerPhotos.appendChild(newPhoto);
+      });
+    }
+  };
   advertisementElement.querySelector('.popup__title').textContent = title;
   advertisementElement.querySelector('.popup__text--address').textContent = address;
   advertisementElement.querySelector('.popup__text--price').textContent = `${price}₽/ночь`;
@@ -43,11 +48,11 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
   advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
   advertisementElement.querySelector('.popup__features').textContent = features.join();
   advertisementElement.querySelector('.popup__description').textContent = description;
-  advertisementElement.querySelector('.popup__photos').innerHTML = photoList;
+  createPopupImage();
   advertisementElement.querySelector('.popup__avatar').src = avatar;
 
-  if (advertisementElement.children) {
-
+  if (title.length === 0) {
+    advertisementElement.querySelector('.popup__title').classList.add('hidden');
   }
 
   similarAdvertisementsFragment.appendChild(advertisementElement);

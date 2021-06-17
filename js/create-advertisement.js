@@ -2,7 +2,7 @@ import * as data from './data.js';
 import {getRandomInteger, getRandomFloat, shuffle, getRandomArrayElement} from './utils.js';
 
 //Получаем уникальные значения, в которых отсутствуют повторы
-const randomResult = shuffle(data.NUM_POOL);
+const randomResult = shuffle(data.USERS); //Пока не использую для создания аватара (использую USERS) const randomResult = shuffle(data.NUM_POOL);
 
 //Код функции по созданию нового массива с рандомными значениями из предложенного массива взят с сайта https://qna.habr.com/q/844269
 const createArr = ([...source], maxLength) => Array.from(
@@ -13,7 +13,8 @@ const createArr = ([...source], maxLength) => Array.from(
 //Функция, возвращающая объявления
 const createAdvertisement = () => ({
   author: {
-    avatar: `img/avatars/user${0}${randomResult.pop()}.png`,
+    //avatar: `img/avatars/user${0}${randomResult.pop()}.png`, Пока не использую для создания аватара (использую USERS)
+    avatar: `img/avatars/${randomResult.pop()}.png`,
   },
   offer: {
     title: 'Объявление о сдаче помещения',

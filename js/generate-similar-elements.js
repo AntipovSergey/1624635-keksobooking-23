@@ -27,16 +27,21 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
   const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
   // Фоточки
   const offerPhotos = advertisementElement.querySelector('.popup__photos');
-  const createPopupImage = (photos, offerPhotos) => {
-    if (photos) {
-      photos.forEach((photo) => {
+  const createPopupImage = (photo, offerPhoto) => {
+
+    while (offerPhotos.firstChild) {
+      offerPhotos.removeChild(offerPhotos.firstChild);
+    }
+
+    if (photo) {
+      photos.forEach((photoSrc) => {
         const newPhoto = document.createElement('img');
         newPhoto.classList.add('popup__photo');
-        newPhoto.src = photo;
+        newPhoto.src = photoSrc;
         newPhoto.width = '45';
         newPhoto.height = '40';
         newPhoto.alt = 'Фотография жилья';
-        offerPhotos.appendChild(newPhoto);
+        offerPhoto.appendChild(newPhoto);
       });
     }
   };
@@ -48,7 +53,7 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
   advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
   advertisementElement.querySelector('.popup__features').textContent = features.join();
   advertisementElement.querySelector('.popup__description').textContent = description;
-  createPopupImage();
+  createPopupImage(photos, offerPhotos);
   advertisementElement.querySelector('.popup__avatar').src = avatar;
 
   if (title.length === 0) {

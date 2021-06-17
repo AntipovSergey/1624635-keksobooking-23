@@ -4,7 +4,7 @@ const TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 
 const TIMES = ['12:00', '13:00', '14:00'];
 
-const USERS = ['user01', 'user02', 'user03', 'user04', 'user05', 'user06', 'user07', 'user08', 'user09', 'user10', 'user11']
+const USERS = ['user01', 'user02', 'user03', 'user04', 'user05', 'user06', 'user07', 'user08', 'user09', 'user10', 'user11'];
 
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 

@@ -1,4 +1,6 @@
 import {createAdvertisements} from './create-advertisement.js';
+import {getValueTypeOffer} from './utils.js';
+import {PHOTO_WIDTH, PHOTO_HEIGHT} from './data.js';
 
 const mapCanvas = document.querySelector('#map-canvas');
 const similarAdvertisementTemplate = document.querySelector('#card')
@@ -6,22 +8,7 @@ const similarAdvertisementTemplate = document.querySelector('#card')
   .querySelector('.popup');
 
 const similarAdvertisements = createAdvertisements();
-
-//console.log(similarAdvertisements);
-
 const similarAdvertisementsFragment = document.createDocumentFragment();
-
-const getValueTypeOffer = function (type) {
-  if (type === 'flat') {
-    return 'Квартира';
-  } else if (type === 'bungalo') {
-    return 'Бунгало';
-  } else if (type === 'palace') {
-    return 'Дворец';
-  } else {
-    return 'Дом';
-  }
-};
 
 similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}}) => {
   const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
@@ -38,8 +25,8 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
         const newPhoto = document.createElement('img');
         newPhoto.classList.add('popup__photo');
         newPhoto.src = photoSrc;
-        newPhoto.width = '45';
-        newPhoto.height = '40';
+        newPhoto.width = PHOTO_WIDTH;
+        newPhoto.height = PHOTO_HEIGHT;
         newPhoto.alt = 'Фотография жилья';
         offerPhoto.appendChild(newPhoto);
       });
@@ -58,6 +45,33 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
 
   if (title.length === 0) {
     advertisementElement.querySelector('.popup__title').classList.add('hidden');
+  }
+  if (address.length === 0) {
+    advertisementElement.querySelector('.popup__text--address').classList.add('hidden');
+  }
+  if (price.length === 0) {
+    advertisementElement.querySelector('.popup__text--price').classList.add('hidden');
+  }
+  if (type.length === 0) {
+    advertisementElement.querySelector('.popup__type').classList.add('hidden');
+  }
+  if (rooms.length === 0 || guests.length === 0) {
+    advertisementElement.querySelector('.popup__text--capacity').classList.add('hidden');
+  }
+  if (checkin.length === 0 || checkout.length === 0) {
+    advertisementElement.querySelector('.popup__text--time').classList.add('hidden');
+  }
+  if (features.length === 0) {
+    advertisementElement.querySelector('.popup__features').classList.add('hidden');
+  }
+  if (description.length === 0) {
+    advertisementElement.querySelector('.popup__description').classList.add('hidden');
+  }
+  if (photos.length === 0) {
+    offerPhotos.classList.add('hidden');
+  }
+  if (avatar.length === 0) {
+    advertisementElement.querySelector('.popup__avatar').classList.add('hidden');
   }
 
   similarAdvertisementsFragment.appendChild(advertisementElement);

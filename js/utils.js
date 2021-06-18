@@ -33,4 +33,17 @@ const shuffle = (array) => {
 //Функция, выбирающая случайный элемент из массива
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-export {getRandomInteger, getRandomFloat, shuffle, getRandomArrayElement};
+//Функция, заменяющая значения на английском на русский язык (тип жилья)
+const getValueTypeOffer = (type) => {
+  if (type === 'flat') {
+    return 'Квартира';
+  } else if (type === 'bungalo') {
+    return 'Бунгало';
+  } else if (type === 'palace') {
+    return 'Дворец';
+  } else {
+    return 'Дом';
+  }
+};
+
+export {getRandomInteger, getRandomFloat, shuffle, getRandomArrayElement, getValueTypeOffer};

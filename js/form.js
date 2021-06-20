@@ -16,7 +16,7 @@ advertisementTitle.addEventListener('input', (evt) => {
   }
 });
 
-//Валидация поля с выбором типа жилья
+//Валидация поля с выбором типа жилья и вводом цены за ночь
 const typeOfAppartaments = document.querySelector('#type');
 const advertisementPricePerNight = document.querySelector('#price');
 let minPrice;
@@ -40,7 +40,6 @@ typeOfAppartaments.addEventListener('change', () => {
   }
 });
 
-//Валидация поля с вводом цены за ночь
 advertisementPricePerNight.addEventListener('input', (evt) => {
   const valuePrice = advertisementPricePerNight.value;
 
@@ -88,10 +87,11 @@ advertisementRoomNumber.addEventListener('click', () => {
 });
 
 //Валидация поля с выбором адреса
-const advertisementAddress = document.querySelector('#address');
+const advertisementAddressField = document.querySelector('#address');
 
-advertisementAddress.addEventListener('input', (evt) => {
-  if (advertisementAddress.input.length === 0) {
+advertisementAddressField.addEventListener('input', (evt) => {
+  const advertisementAddress = advertisementAddressField.value;
+  if (advertisementAddress.length === 0) {
     evt.preventDefault();
   }
 });

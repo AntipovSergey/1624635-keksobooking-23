@@ -1,4 +1,5 @@
 import {MIN_NAME_LENGTH, MAX_NAME_LENGTH, MAX_PRICE_LENGTH} from './data.js';
+import {PRICE_VALUES, NUMBER_OF_ROOMS} from './data.js';
 
 //Валидация поля с вводом заголовка объявления
 const advertisementTitle = document.querySelector('#title');
@@ -17,25 +18,25 @@ advertisementTitle.addEventListener('input', (evt) => {
 });
 
 //Валидация поля с выбором типа жилья и вводом цены за ночь
-const typeOfAppartaments = document.querySelector('#type');
+const typeOfAppartments = document.querySelector('#type');
 const advertisementPricePerNight = document.querySelector('#price');
 let minPrice;
 
-typeOfAppartaments.addEventListener('change', () => {
-  if (typeOfAppartaments.value === 'bungalow') {
-    minPrice = 0;
+typeOfAppartments.addEventListener('change', () => {
+  if (typeOfAppartments.value === 'bungalow') {
+    minPrice = PRICE_VALUES.bungalow;
     advertisementPricePerNight.placeholder = minPrice;
-  } else if (typeOfAppartaments.value === 'flat') {
-    minPrice = 1000;
+  } else if (typeOfAppartments.value === 'flat') {
+    minPrice = PRICE_VALUES.flat;
     advertisementPricePerNight.placeholder = minPrice;
-  } else if (typeOfAppartaments.value === 'hotel') {
-    minPrice = 3000;
+  } else if (typeOfAppartments.value === 'hotel') {
+    minPrice = PRICE_VALUES.hotel;
     advertisementPricePerNight.placeholder = minPrice;
-  } else if (typeOfAppartaments.value === 'house') {
-    minPrice = 5000;
+  } else if (typeOfAppartments.value === 'house') {
+    minPrice = PRICE_VALUES.house;
     advertisementPricePerNight.placeholder = minPrice;
-  } else if (typeOfAppartaments.value === 'palace') {
-    minPrice = 10000;
+  } else if (typeOfAppartments.value === 'palace') {
+    minPrice = PRICE_VALUES.palace;
     advertisementPricePerNight.placeholder = minPrice;
   }
 });
@@ -63,22 +64,22 @@ for (let index = 0; index < advertisementCapacity.options.length; index++) {
 }
 
 advertisementRoomNumber.addEventListener('click', () => {
-  if (advertisementRoomNumber.value === '1') {
+  if (advertisementRoomNumber.value === NUMBER_OF_ROOMS.oneRoom) {
     advertisementCapacity.options[2].removeAttribute('disabled', true);
     advertisementCapacity.options[3].setAttribute('disabled', true);
     advertisementCapacity.options[1].setAttribute('disabled', true);
     advertisementCapacity.options[0].setAttribute('disabled', true);
-  } else if (advertisementRoomNumber.value === '2') {
+  } else if (advertisementRoomNumber.value === NUMBER_OF_ROOMS.twoRooms) {
     advertisementCapacity.options[2].removeAttribute('disabled', true);
     advertisementCapacity.options[1].removeAttribute('disabled', true);
     advertisementCapacity.options[3].setAttribute('disabled', true);
     advertisementCapacity.options[0].setAttribute('disabled', true);
-  } else if (advertisementRoomNumber.value === '3') {
+  } else if (advertisementRoomNumber.value === NUMBER_OF_ROOMS.threeRooms) {
     advertisementCapacity.options[2].removeAttribute('disabled', true);
     advertisementCapacity.options[1].removeAttribute('disabled', true);
     advertisementCapacity.options[0].removeAttribute('disabled', true);
     advertisementCapacity.options[3].setAttribute('disabled', true);
-  } else if (advertisementRoomNumber.value === '100') {
+  } else if (advertisementRoomNumber.value === NUMBER_OF_ROOMS.hundredRooms) {
     advertisementCapacity.options[2].setAttribute('disabled', true);
     advertisementCapacity.options[1].setAttribute('disabled', true);
     advertisementCapacity.options[0].setAttribute('disabled', true);

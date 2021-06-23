@@ -87,6 +87,16 @@ advertisementRoomNumber.addEventListener('click', () => {
   }
 });
 
+//Валидация поля с выбором даты заезда/выезда
+const checkInInputElement = document.querySelector('#timein');
+const checkOutInputElement = document.querySelector('#timeout');
+
+checkInInputElement.addEventListener('change',  () => {
+  checkOutInputElement.selectedIndex = checkInInputElement.selectedIndex;
+});
+checkOutInputElement.addEventListener('change',  () => {
+  checkInInputElement.selectedIndex = checkOutInputElement.selectedIndex;
+});
 //Валидация поля с выбором адреса
 const advertisementAddressField = document.querySelector('#address');
 

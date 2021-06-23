@@ -88,59 +88,15 @@ advertisementRoomNumber.addEventListener('click', () => {
 });
 
 //Валидация поля с выбором даты заезда/выезда
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
+const checkInInputElement = document.querySelector('#timein');
+const checkOutInputElement = document.querySelector('#timeout');
 
-timeIn.addEventListener('click', () => {
-  if(timeIn.value === '12:00') {
-    timeIn.options[0].setAttribute('selected', true);
-    timeIn.options[1].removeAttribute('selected', true);
-    timeIn.options[2].removeAttribute('selected', true);
-    timeOut.options[0].setAttribute('selected', true);
-    timeOut.options[1].removeAttribute('selected', true);
-    timeOut.options[2].removeAttribute('selected', true);
-  } else if (timeIn.value === '13:00') {
-    timeIn.options[1].setAttribute('selected', true);
-    timeIn.options[0].removeAttribute('selected', true);
-    timeIn.options[2].removeAttribute('selected', true);
-    timeOut.options[0].removeAttribute('selected', true);
-    timeOut.options[1].setAttribute('selected', true);
-    timeOut.options[2].removeAttribute('selected', true);
-  } else if (timeIn.value === '14:00') {
-    timeIn.options[2].setAttribute('selected', true);
-    timeIn.options[0].removeAttribute('selected', true);
-    timeIn.options[1].removeAttribute('selected', true);
-    timeOut.options[0].removeAttribute('selected', true);
-    timeOut.options[2].setAttribute('selected', true);
-    timeOut.options[1].removeAttribute('selected', true);
-  }
+checkInInputElement.addEventListener('change',  () => {
+  checkOutInputElement.selectedIndex = checkInInputElement.selectedIndex;
 });
-
-timeOut.addEventListener('click', () => {
-  if(timeOut.value === '12:00') {
-    timeOut.options[0].setAttribute('selected', true);
-    timeOut.options[1].removeAttribute('selected', true);
-    timeOut.options[2].removeAttribute('selected', true);
-    timeIn.options[0].setAttribute('selected', true);
-    timeIn.options[1].removeAttribute('selected', true);
-    timeIn.options[2].removeAttribute('selected', true);
-  } else if (timeOut.value === '13:00') {
-    timeOut.options[1].setAttribute('selected', true);
-    timeOut.options[0].removeAttribute('selected', true);
-    timeOut.options[2].removeAttribute('selected', true);
-    timeIn.options[0].removeAttribute('selected', true);
-    timeIn.options[1].setAttribute('selected', true);
-    timeIn.options[2].removeAttribute('selected', true);
-  } else if (timeOut.value === '14:00') {
-    timeOut.options[2].setAttribute('selected', true);
-    timeOut.options[1].removeAttribute('selected', true);
-    timeOut.options[0].removeAttribute('selected', true);
-    timeIn.options[0].removeAttribute('selected', true);
-    timeIn.options[2].setAttribute('selected', true);
-    timeIn.options[1].removeAttribute('selected', true);
-  }
+checkOutInputElement.addEventListener('change',  () => {
+  checkInInputElement.selectedIndex = checkOutInputElement.selectedIndex;
 });
-
 //Валидация поля с выбором адреса
 const advertisementAddressField = document.querySelector('#address');
 

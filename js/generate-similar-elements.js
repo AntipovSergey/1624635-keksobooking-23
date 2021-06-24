@@ -2,7 +2,7 @@ import {createAdvertisements} from './create-advertisement.js';
 import {getValueTypeOffer} from './utils.js';
 import {PHOTO_WIDTH, PHOTO_HEIGHT} from './data.js';
 
-const mapCanvas = document.querySelector('#map-canvas');
+//const mapCanvas = document.querySelector('#map-canvas');
 const similarAdvertisementTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -77,4 +77,4 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
   similarAdvertisementsFragment.appendChild(advertisementElement);
 });
 
-mapCanvas.appendChild(similarAdvertisementsFragment.firstChild);
+export {similarAdvertisements};

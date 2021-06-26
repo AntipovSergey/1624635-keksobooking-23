@@ -2,6 +2,7 @@ import {formActiveConditionHandler} from './form-condition.js';
 import {LAT_LANG_DEFAULT} from './data.js';
 import {similarAdvertisements} from './generate-similar-elements.js';
 import {PHOTO_WIDTH, PHOTO_HEIGHT} from './data.js';
+import {getValueTypeOffer} from './utils.js';
 
 const myMap = L.map('map-canvas')
   .on('load', () => {
@@ -121,8 +122,7 @@ const createCustomPopup = (offer, author, location) => {
   return advertisementElement;
 };
 
-similarAdvertisements.forEach((offer, author, location) => {
-
+const createMarker = ((offer, author, location) => {
   //const {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos} = offer;
   //const {avatar} = author;
   const {lat, lng} = location;
@@ -151,3 +151,8 @@ similarAdvertisements.forEach((offer, author, location) => {
       },
     );
 });
+
+similarAdvertisements.forEach((offer, author, location) => {
+  createMarker(offer, author, location);
+});
+

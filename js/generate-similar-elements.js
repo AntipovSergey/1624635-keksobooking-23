@@ -8,9 +8,9 @@ const similarAdvertisementTemplate = document.querySelector('#card')
   .querySelector('.popup');
 
 const similarAdvertisements = createAdvertisements();
-const similarAdvertisementsFragment = document.createDocumentFragment();
+const similarAdvertisementsFragment = [];
 
-similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}}) => {
+similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}, location: {lat, lng}}) => {
   const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
   // Фоточки
   const offerPhotos = advertisementElement.querySelector('.popup__photos');
@@ -33,7 +33,7 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
     }
   };
   advertisementElement.querySelector('.popup__title').textContent = title;
-  advertisementElement.querySelector('.popup__text--address').textContent = address;
+  advertisementElement.querySelector('.popup__text--address').textContent = `${lat} ${lng}`;
   advertisementElement.querySelector('.popup__text--price').textContent = `${price}₽/ночь`;
   advertisementElement.querySelector('.popup__type').textContent = getValueTypeOffer(type);
   advertisementElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${  guests  } гостей`;
@@ -74,7 +74,7 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
     advertisementElement.querySelector('.popup__avatar').classList.add('hidden');
   }
 
-  similarAdvertisementsFragment.appendChild(advertisementElement);
+  similarAdvertisementsFragment.push(advertisementElement);
 });
 
-export {similarAdvertisements};
+export {similarAdvertisements, similarAdvertisementsFragment};

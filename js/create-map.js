@@ -9,8 +9,8 @@ const myMap = L.map('map-canvas')
     formActiveConditionHandler();
   })
   .setView ({
-    lat:35.680929,
-    lng:139.768601,
+    lat:LAT_LANG_DEFAULT.lat,
+    lng:LAT_LANG_DEFAULT.lng,
   }, 10);
 
 L.tileLayer(
@@ -21,7 +21,7 @@ L.tileLayer(
 ).addTo(myMap);
 
 const mapPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26 ,41],
 });
@@ -33,8 +33,8 @@ advertisementAddress.value = `${advertisementAddressLat} ${advertisementAddressL
 
 const mapPinMarker = L.marker(
   {
-    lat:35.680929,
-    lng:139.768601,
+    lat:LAT_LANG_DEFAULT.lat,
+    lng:LAT_LANG_DEFAULT.lng,
   },
   {
     draggable: true,
@@ -119,7 +119,7 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
   }
 
   const icon = L.icon ({
-    iconUrl: '../img/pin.svg',
+    iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20 ,40],
   });

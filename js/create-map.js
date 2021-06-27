@@ -51,8 +51,7 @@ mapPinMarker.on('moveend', (evt) => {
   advertisementAddress.value = `${latPinMarker} ${lngPinMarker}`;
 });
 
-//
-const createCustomPopup = (offer, author, location) => {
+similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}, location: {lat, lng}}) => {
   const similarAdvertisementTemplate = document.querySelector('#card')
     .content
     .querySelector('.popup');
@@ -77,16 +76,16 @@ const createCustomPopup = (offer, author, location) => {
       });
     }
   };
-  advertisementElement.querySelector('.popup__title').textContent = offer.title;
-  advertisementElement.querySelector('.popup__text--address').textContent = `${location.lat} ${location.lng}`;
-  advertisementElement.querySelector('.popup__text--price').textContent = `${offer.price}₽/ночь`;
-  advertisementElement.querySelector('.popup__type').textContent = getValueTypeOffer(offer.type);
-  advertisementElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${  offer.guests  } гостей`;
-  advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  advertisementElement.querySelector('.popup__features').textContent = offer.features.join();
-  advertisementElement.querySelector('.popup__description').textContent = offer.description;
-  createPopupImage(offer.photos, offerPhotos);
-  advertisementElement.querySelector('.popup__avatar').src = author.avatar;
+  advertisementElement.querySelector('.popup__title').textContent = title;
+  advertisementElement.querySelector('.popup__text--address').textContent = `${lat} ${lng}`;
+  advertisementElement.querySelector('.popup__text--price').textContent = `${price}₽/ночь`;
+  advertisementElement.querySelector('.popup__type').textContent = getValueTypeOffer(type);
+  advertisementElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${  guests  } гостей`;
+  advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
+  advertisementElement.querySelector('.popup__features').textContent = features.join();
+  advertisementElement.querySelector('.popup__description').textContent = description;
+  createPopupImage(photos, offerPhotos);
+  advertisementElement.querySelector('.popup__avatar').src = avatar;
 
   if (title.length === 0) {
     advertisementElement.querySelector('.popup__title').classList.add('hidden');
@@ -119,14 +118,6 @@ const createCustomPopup = (offer, author, location) => {
     advertisementElement.querySelector('.popup__avatar').classList.add('hidden');
   }
 
-  return advertisementElement;
-};
-
-const createMarker = ((offer, author, location) => {
-  //const {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos} = offer;
-  //const {avatar} = author;
-  const {lat, lng} = location;
-
   const icon = L.icon ({
     iconUrl: '../img/pin.svg',
     iconSize: [40, 40],
@@ -144,15 +135,5 @@ const createMarker = ((offer, author, location) => {
 
   marker
     .addTo(myMap)
-    .bindPopup(
-      createCustomPopup(offer, author, location),
-      {
-        keepInView: true,
-      },
-    );
+    .bindPopup(advertisementElement);
 });
-
-similarAdvertisements.forEach((offer, author, location) => {
-  createMarker(offer, author, location);
-});
-

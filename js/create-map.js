@@ -1,16 +1,60 @@
-import {createAdvertisements} from './create-advertisement.js';
-import {getValueTypeOffer} from './utils.js';
+import {formActiveConditionHandler} from './form-condition.js';
+import {LAT_LANG_DEFAULT} from './data.js';
+import {similarAdvertisements} from './generate-similar-elements.js';
 import {PHOTO_WIDTH, PHOTO_HEIGHT} from './data.js';
+import {getValueTypeOffer} from './utils.js';
 
-//const mapCanvas = document.querySelector('#map-canvas');
-const similarAdvertisementTemplate = document.querySelector('#card')
-  .content
-  .querySelector('.popup');
+const myMap = L.map('map-canvas')
+  .on('load', () => {
+    formActiveConditionHandler();
+  })
+  .setView ({
+    lat:LAT_LANG_DEFAULT.lat,
+    lng:LAT_LANG_DEFAULT.lng,
+  }, 10);
 
-const similarAdvertisements = createAdvertisements();
-const similarAdvertisementsFragment = [];
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
+).addTo(myMap);
+
+const mapPinIcon = L.icon({
+  iconUrl: 'img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26 ,41],
+});
+
+const advertisementAddress = document.querySelector('#address');
+const advertisementAddressLat = LAT_LANG_DEFAULT.lat.toFixed(5);
+const advertisementAddressLng = LAT_LANG_DEFAULT.lng.toFixed(5);
+advertisementAddress.value = `${advertisementAddressLat} ${advertisementAddressLng}`;
+
+const mapPinMarker = L.marker(
+  {
+    lat:LAT_LANG_DEFAULT.lat,
+    lng:LAT_LANG_DEFAULT.lng,
+  },
+  {
+    draggable: true,
+    icon: mapPinIcon,
+  },
+);
+
+mapPinMarker.addTo(myMap);
+
+mapPinMarker.on('moveend', (evt) => {
+  const latLang = evt.target.getLatLng();
+  const latPinMarker = latLang.lat.toFixed(5);
+  const lngPinMarker = latLang.lng.toFixed(5);
+  advertisementAddress.value = `${latPinMarker} ${lngPinMarker}`;
+});
 
 similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}, location: {lat, lng}}) => {
+  const similarAdvertisementTemplate = document.querySelector('#card')
+    .content
+    .querySelector('.popup');
   const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
   // Фоточки
   const offerPhotos = advertisementElement.querySelector('.popup__photos');
@@ -74,7 +118,22 @@ similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, gues
     advertisementElement.querySelector('.popup__avatar').classList.add('hidden');
   }
 
-  similarAdvertisementsFragment.push(advertisementElement);
-});
+  const icon = L.icon ({
+    iconUrl: 'img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20 ,40],
+  });
+  const marker = L.marker (
+    {
+      lat,
+      lng,
+    },
+    {
+      icon,
+    },
+  );
 
-export {similarAdvertisements, similarAdvertisementsFragment};
+  marker
+    .addTo(myMap)
+    .bindPopup(advertisementElement);
+});

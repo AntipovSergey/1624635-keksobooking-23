@@ -25,5 +25,4 @@ const formActiveConditionHandler = () => {
   }
 };
 
-formInactiveConditionHandler();
-formActiveConditionHandler();
+export {formInactiveConditionHandler, formActiveConditionHandler};

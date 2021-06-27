@@ -18,7 +18,7 @@ const createAdvertisement = () => ({
   },
   offer: {
     title: 'Объявление о сдаче помещения',
-    address: `${getRandomFloat(10, 60, 5)}, ${  getRandomFloat(10, 60, 5)}`,
+    address: `${ getRandomFloat(35.65000, 35.70000, 5)}, ${  getRandomFloat(139.70000,139.80000, 5)}`,
     price: getRandomInteger (500, 30000),
     type: getRandomArrayElement(data.TYPE),
     rooms: getRandomInteger(1, 4),

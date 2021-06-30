@@ -37,7 +37,7 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 const getValueTypeOffer = (type) => {
   if (type === 'flat') {
     return 'Квартира';
-  } else if (type === 'bungalo') {
+  } else if (type === 'bungalow') {
     return 'Бунгало';
   } else if (type === 'palace') {
     return 'Дворец';

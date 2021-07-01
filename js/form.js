@@ -1,6 +1,5 @@
 import {MIN_NAME_LENGTH, MAX_NAME_LENGTH, MAX_PRICE_LENGTH} from './data.js';
 import {PRICE_VALUES, NUMBER_OF_ROOMS} from './data.js';
-import {showAlert} from './utils.js';
 import {sendData} from './api.js';
 
 //Валидация поля с вводом заголовка объявления
@@ -110,13 +109,13 @@ advertisementAddressField.addEventListener('input', (evt) => {
 });
 
 const advertisementForm = document.querySelector('.ad-form');
-const setUserFormSubmit = (onSuccess) => {
+const setUserFormSubmit = (onSuccess, onFail) => {
   advertisementForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
       () => onSuccess(),
-      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      () => onFail(),
       new FormData(evt.target),
     );
   });

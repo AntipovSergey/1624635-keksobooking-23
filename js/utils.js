@@ -69,4 +69,50 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandomInteger, getRandomFloat, shuffle, getRandomArrayElement, getValueTypeOffer, showAlert};
+const map = document.querySelector('.map');
+
+const showSuccessMessage = () => {
+  const successMessageTemplate = document.querySelector('#success')
+    .content
+    .querySelector('.success');
+  const successMessageElement = successMessageTemplate.cloneNode(true);
+  successMessageElement.children[0].textContent = `Ваше объявление
+  успешно размещено!`;
+  map.appendChild(successMessageElement);
+
+  document.addEventListener('keydown', (evt) => {
+    if(evt.keyCode === 27) {
+      successMessageElement.classList.add('hidden');
+    }
+  });
+  document.addEventListener('click', () => {
+
+    successMessageElement.classList.add('hidden');
+
+  });
+};
+
+const showErrorMessage = () => {
+  const errorMessageTemplate = document.querySelector('#error')
+    .content
+    .querySelector('.error');
+  const errorMessageElement = errorMessageTemplate.cloneNode(true);
+  errorMessageElement.children[0].textContent = 'Ошибка размещения объявления';
+  errorMessageElement.children[1].addEventListener('click', () => {
+    errorMessageElement.classList.add('hidden');
+  });
+  map.appendChild(errorMessageElement);
+
+  document.addEventListener('keydown', (evt) => {
+    if(evt.keyCode === 27) {
+      errorMessageElement.classList.add('hidden');
+    }
+  });
+  document.addEventListener('click', () => {
+
+    errorMessageElement.classList.add('hidden');
+
+  });
+};
+
+export {getRandomInteger, getRandomFloat, shuffle, getRandomArrayElement, getValueTypeOffer, showAlert, showSuccessMessage, showErrorMessage};

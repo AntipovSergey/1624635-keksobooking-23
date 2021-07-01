@@ -25,4 +25,6 @@ const formActiveConditionHandler = () => {
   }
 };
 
-export {formInactiveConditionHandler, formActiveConditionHandler};
+const resetForm = () => advertisementForm.reset();
+
+export {formInactiveConditionHandler, formActiveConditionHandler, resetForm};

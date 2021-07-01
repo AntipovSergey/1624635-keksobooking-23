@@ -2,8 +2,6 @@ import {formActiveConditionHandler} from './form-condition.js';
 import {LAT_LANG_DEFAULT} from './data.js';
 import {PHOTO_WIDTH, PHOTO_HEIGHT} from './data.js';
 import {getValueTypeOffer} from './utils.js';
-import {getData} from './api.js';
-import {SIMILAR_ADVERTISEMENTS} from './data.js';
 
 const myMap = L.map('map-canvas')
   .on('load', () => {
@@ -141,6 +139,4 @@ const generateAdvertisements = (similarAdvertisements) => {
   });
 };
 
-getData((similarAdvertisements) => {
-  generateAdvertisements(similarAdvertisements.slice(0, SIMILAR_ADVERTISEMENTS));
-});
+export {generateAdvertisements};

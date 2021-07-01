@@ -1,5 +1,8 @@
 import {MIN_NAME_LENGTH, MAX_NAME_LENGTH, MAX_PRICE_LENGTH} from './data.js';
 import {PRICE_VALUES, NUMBER_OF_ROOMS} from './data.js';
+import {sendData} from './api.js';
+import {resetForm} from './form-condition.js';
+import {setDefaultAddressLatLng, setDefaultPinMarker} from './create-map.js';
 
 //Валидация поля с вводом заголовка объявления
 const advertisementTitle = document.querySelector('#title');
@@ -106,3 +109,30 @@ advertisementAddressField.addEventListener('input', (evt) => {
     evt.preventDefault();
   }
 });
+
+const advertisementForm = document.querySelector('.ad-form');
+const setUserFormSubmit = (onSuccess, onFail) => {
+  advertisementForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => onFail(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+const resetFormByResetButton = () => {
+  const resetButton = document.querySelector('.ad-form__reset');
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetForm();
+    setDefaultAddressLatLng();
+    setDefaultPinMarker();
+  });
+};
+
+resetFormByResetButton();
+
+export {setUserFormSubmit};

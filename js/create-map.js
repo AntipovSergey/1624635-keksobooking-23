@@ -26,9 +26,13 @@ const mapPinIcon = L.icon({
 });
 
 const advertisementAddress = document.querySelector('#address');
-const advertisementAddressLat = LAT_LANG_DEFAULT.lat.toFixed(5);
-const advertisementAddressLng = LAT_LANG_DEFAULT.lng.toFixed(5);
-advertisementAddress.value = `${advertisementAddressLat} ${advertisementAddressLng}`;
+const setDefaultAddressLatLng = () => {
+  const advertisementAddressLat = LAT_LANG_DEFAULT.lat.toFixed(5);
+  const advertisementAddressLng = LAT_LANG_DEFAULT.lng.toFixed(5);
+  advertisementAddress.value = `${advertisementAddressLat} ${advertisementAddressLng}`;
+};
+
+setDefaultAddressLatLng();
 
 const mapPinMarker = L.marker(
   {
@@ -49,6 +53,13 @@ mapPinMarker.on('moveend', (evt) => {
   const lngPinMarker = latLang.lng.toFixed(5);
   advertisementAddress.value = `${latPinMarker} ${lngPinMarker}`;
 });
+
+const setDefaultPinMarker = () => {
+  mapPinMarker.setLatLng({
+    lat: LAT_LANG_DEFAULT.lat,
+    lng: LAT_LANG_DEFAULT.lng,
+  });
+};
 
 const generateAdvertisements = (similarAdvertisements) => {
   similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}, location: {lat, lng}}) => {
@@ -139,4 +150,4 @@ const generateAdvertisements = (similarAdvertisements) => {
   });
 };
 
-export {generateAdvertisements};
+export {generateAdvertisements, setDefaultAddressLatLng, setDefaultPinMarker};

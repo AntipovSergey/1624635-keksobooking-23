@@ -1,6 +1,4 @@
 import './utils.js';
-import './create-advertisement.js';
-import './generate-similar-elements.js';
 import './form.js';
 import './form-condition.js';
 import './create-map.js';
@@ -15,6 +13,4 @@ getData((similarAdvertisements) => {
   generateAdvertisements(similarAdvertisements.slice(0, SIMILAR_ADVERTISEMENTS));
 });
 
-
 setUserFormSubmit(resetForm);
-

@@ -1,5 +1,6 @@
 import {showAlert} from './utils.js';
 import {showSuccessMessage, showErrorMessage} from './utils.js';
+import {setDefaultAddressLatLng, setDefaultPinMarker} from './create-map.js';
 
 const getData = (onSuccess) => {
   fetch('https://23.javascript.pages.academy/keksobooking/data')
@@ -24,6 +25,8 @@ const sendData = (onSuccess, onFail, body) => {
       if(response.ok) {
         onSuccess();
         showSuccessMessage();
+        setDefaultAddressLatLng();
+        setDefaultPinMarker();
       } else {
         showErrorMessage();
       }

@@ -1,7 +1,11 @@
-import {formActiveConditionHandler} from './form-condition.js';
+import {formActiveConditionHandler, formInactiveConditionHandler} from './form-condition.js';
 import {LAT_LANG_DEFAULT} from './data.js';
 import {PHOTO_WIDTH, PHOTO_HEIGHT} from './data.js';
 import {getValueTypeOffer} from './utils.js';
+import {getFilteredAdvertisements} from './filter.js';
+
+//Форма неактивна до загрузки карты и отрисовки объявлений
+formInactiveConditionHandler();
 
 const myMap = L.map('map-canvas')
   .on('load', () => {
@@ -60,94 +64,95 @@ const setDefaultPinMarker = () => {
     lng: LAT_LANG_DEFAULT.lng,
   });
 };
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
 const generateAdvertisements = (similarAdvertisements) => {
-  similarAdvertisements.forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}, location: {lat, lng}}) => {
-    const similarAdvertisementTemplate = document.querySelector('#card')
-      .content
-      .querySelector('.popup');
-    const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
-    // Фоточки
-    const offerPhotos = advertisementElement.querySelector('.popup__photos');
-    const createPopupImage = (photo, offerPhoto) => {
+  getFilteredAdvertisements(similarAdvertisements)
+    .forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}, location: {lat, lng}}) => {
+      const similarAdvertisementTemplate = document.querySelector('#card')
+        .content
+        .querySelector('.popup');
+      const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
+      // Фоточки
+      const offerPhotos = advertisementElement.querySelector('.popup__photos');
+      const createPopupImage = (photo, offerPhoto) => {
 
-      while (offerPhotos.firstChild) {
-        offerPhotos.removeChild(offerPhotos.firstChild);
+        while (offerPhotos.firstChild) {
+          offerPhotos.removeChild(offerPhotos.firstChild);
+        }
+
+        if (photo) {
+          photos.forEach((photoSrc) => {
+            const newPhoto = document.createElement('img');
+            newPhoto.classList.add('popup__photo');
+            newPhoto.src = photoSrc;
+            newPhoto.width = PHOTO_WIDTH;
+            newPhoto.height = PHOTO_HEIGHT;
+            newPhoto.alt = 'Фотография жилья';
+            offerPhoto.appendChild(newPhoto);
+          });
+        }
+      };
+      advertisementElement.querySelector('.popup__title').textContent = title;
+      advertisementElement.querySelector('.popup__text--address').textContent = `${lat.toFixed(5)} ${lng.toFixed(5)}`;
+      advertisementElement.querySelector('.popup__text--price').textContent = `${price}₽/ночь`;
+      advertisementElement.querySelector('.popup__type').textContent = getValueTypeOffer(type);
+      advertisementElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${  guests  } гостей`;
+      advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
+      advertisementElement.querySelector('.popup__features').textContent = features;
+      advertisementElement.querySelector('.popup__description').textContent = description;
+      createPopupImage(photos, offerPhotos);
+      advertisementElement.querySelector('.popup__avatar').src = avatar;
+
+      if (typeof title === 'undefined') {
+        advertisementElement.querySelector('.popup__title').classList.add('hidden');
+      }
+      if (typeof address === 'undefined') {
+        advertisementElement.querySelector('.popup__text--address').classList.add('hidden');
+      }
+      if (typeof price === 'undefined') {
+        advertisementElement.querySelector('.popup__text--price').classList.add('hidden');
+      }
+      if (typeof type === 'undefined') {
+        advertisementElement.querySelector('.popup__type').classList.add('hidden');
+      }
+      if (typeof rooms === 'undefined' || typeof guests === 'undefined') {
+        advertisementElement.querySelector('.popup__text--capacity').classList.add('hidden');
+      }
+      if (typeof checkin === 'undefined' || typeof checkout === 'undefined') {
+        advertisementElement.querySelector('.popup__text--time').classList.add('hidden');
+      }
+      if (typeof features === 'undefined') {
+        advertisementElement.querySelector('.popup__features').classList.add('hidden');
+      }
+      if (typeof description === 'undefined') {
+        advertisementElement.querySelector('.popup__description').classList.add('hidden');
+      }
+      if (typeof photos === 'undefined') {
+        offerPhotos.classList.add('hidden');
+      }
+      if (typeof avatar === 'undefined') {
+        advertisementElement.querySelector('.popup__avatar').classList.add('hidden');
       }
 
-      if (photo) {
-        photos.forEach((photoSrc) => {
-          const newPhoto = document.createElement('img');
-          newPhoto.classList.add('popup__photo');
-          newPhoto.src = photoSrc;
-          newPhoto.width = PHOTO_WIDTH;
-          newPhoto.height = PHOTO_HEIGHT;
-          newPhoto.alt = 'Фотография жилья';
-          offerPhoto.appendChild(newPhoto);
-        });
-      }
-    };
-    advertisementElement.querySelector('.popup__title').textContent = title;
-    advertisementElement.querySelector('.popup__text--address').textContent = `${lat.toFixed(5)} ${lng.toFixed(5)}`;
-    advertisementElement.querySelector('.popup__text--price').textContent = `${price}₽/ночь`;
-    advertisementElement.querySelector('.popup__type').textContent = getValueTypeOffer(type);
-    advertisementElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${  guests  } гостей`;
-    advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
-    advertisementElement.querySelector('.popup__features').textContent = features;
-    advertisementElement.querySelector('.popup__description').textContent = description;
-    createPopupImage(photos, offerPhotos);
-    advertisementElement.querySelector('.popup__avatar').src = avatar;
+      const icon = L.icon ({
+        iconUrl: 'img/pin.svg',
+        iconSize: [40, 40],
+        iconAnchor: [20 ,40],
+      });
+      const marker = L.marker (
+        {
+          lat,
+          lng,
+        },
+        {
+          icon,
+        },
+      );
 
-    if (typeof title === 'undefined') {
-      advertisementElement.querySelector('.popup__title').classList.add('hidden');
-    }
-    if (typeof address === 'undefined') {
-      advertisementElement.querySelector('.popup__text--address').classList.add('hidden');
-    }
-    if (typeof price === 'undefined') {
-      advertisementElement.querySelector('.popup__text--price').classList.add('hidden');
-    }
-    if (typeof type === 'undefined') {
-      advertisementElement.querySelector('.popup__type').classList.add('hidden');
-    }
-    if (typeof rooms === 'undefined' || typeof guests === 'undefined') {
-      advertisementElement.querySelector('.popup__text--capacity').classList.add('hidden');
-    }
-    if (typeof checkin === 'undefined' || typeof checkout === 'undefined') {
-      advertisementElement.querySelector('.popup__text--time').classList.add('hidden');
-    }
-    if (typeof features === 'undefined') {
-      advertisementElement.querySelector('.popup__features').classList.add('hidden');
-    }
-    if (typeof description === 'undefined') {
-      advertisementElement.querySelector('.popup__description').classList.add('hidden');
-    }
-    if (typeof photos === 'undefined') {
-      offerPhotos.classList.add('hidden');
-    }
-    if (typeof avatar === 'undefined') {
-      advertisementElement.querySelector('.popup__avatar').classList.add('hidden');
-    }
-
-    const icon = L.icon ({
-      iconUrl: 'img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20 ,40],
+      marker
+        .addTo(myMap)
+        .bindPopup(advertisementElement);
     });
-    const marker = L.marker (
-      {
-        lat,
-        lng,
-      },
-      {
-        icon,
-      },
-    );
-
-    marker
-      .addTo(myMap)
-      .bindPopup(advertisementElement);
-  });
 };
 
 export {generateAdvertisements, setDefaultAddressLatLng, setDefaultPinMarker};

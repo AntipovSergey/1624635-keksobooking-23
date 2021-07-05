@@ -115,4 +115,13 @@ const showErrorMessage = () => {
   });
 };
 
-export {getRandomInteger, getRandomFloat, shuffle, getRandomArrayElement, getValueTypeOffer, showAlert, showSuccessMessage, showErrorMessage};
+const debounce = (fn, ms) => {
+  let timeout;
+  return function () {
+    const fnCall = () => {fn.apply(this, arguments);};
+    clearTimeout(timeout);
+    timeout = setTimeout(fnCall, ms);
+  };
+};
+
+export {getRandomInteger, getRandomFloat, shuffle, getRandomArrayElement, getValueTypeOffer, showAlert, showSuccessMessage, showErrorMessage, debounce};

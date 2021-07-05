@@ -110,6 +110,11 @@ advertisementAddressField.addEventListener('input', (evt) => {
   }
 });
 
+const typeFilter = document.querySelector('#housing-type');
+typeFilter.addEventListener('change', () => {
+
+});
+
 const advertisementForm = document.querySelector('.ad-form');
 const setUserFormSubmit = (onSuccess, onFail) => {
   advertisementForm.addEventListener('submit', (evt) => {

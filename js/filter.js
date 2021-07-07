@@ -26,7 +26,6 @@ const checkPrice = ({offer}) => {
 
 const checkFeatures = ({offer}) => {
   const checkedFeatures = Array.from(mapFiltersForm.querySelectorAll('.map__checkbox:checked'));
-
   return checkedFeatures.every((feature) => {
     return offer.features.includes(feature.value);
   });

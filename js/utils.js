@@ -1,5 +1,7 @@
 import {ALERT_SHOW_TIME} from './data.js';
 
+const map = document.querySelector('.map');
+
 //Для написания данной функции воспользовался кодом с сайта MDN
 function getRandomInteger(min, max) {
   min = Math.ceil(min);
@@ -43,6 +45,8 @@ const getValueTypeOffer = (type) => {
     return 'Бунгало';
   } else if (type === 'palace') {
     return 'Дворец';
+  } else if (type === 'hotel') {
+    return 'Отель';
   } else {
     return 'Дом';
   }
@@ -68,8 +72,6 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
-
-const map = document.querySelector('.map');
 
 const showSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success')
@@ -118,9 +120,9 @@ const showErrorMessage = () => {
 const debounce = (fn, ms) => {
   let timeout;
   return function () {
-    const fnCall = () => {fn.apply(this, arguments);};
-    clearTimeout(timeout);
-    timeout = setTimeout(fnCall, ms);
+    const fnCall = () => {fn.apply(this, arguments)}
+    clearTimeout(timeout)
+    timeout = setTimeout(fnCall, ms)
   };
 };
 

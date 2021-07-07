@@ -13,6 +13,7 @@ import {debounce} from './utils.js';
 import {setFiltersFormChange} from './filter.js';
 
 getData((similarAdvertisements) => {
+  generateAdvertisements(similarAdvertisements.slice(0, SIMILAR_ADVERTISEMENTS));
   setFiltersFormChange(debounce(() => generateAdvertisements(similarAdvertisements.slice(0, SIMILAR_ADVERTISEMENTS)),RERENDER_DELAY));
 });
 

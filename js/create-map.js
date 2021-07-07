@@ -4,6 +4,9 @@ import {PHOTO_WIDTH, PHOTO_HEIGHT} from './data.js';
 import {getValueTypeOffer} from './utils.js';
 import {getFilteredAdvertisements} from './filter.js';
 
+const advertisementAddress = document.querySelector('#address');
+const markers = []
+
 //Форма неактивна до загрузки карты и отрисовки объявлений
 formInactiveConditionHandler();
 
@@ -29,7 +32,6 @@ const mapPinIcon = L.icon({
   iconAnchor: [26 ,41],
 });
 
-const advertisementAddress = document.querySelector('#address');
 const setDefaultAddressLatLng = () => {
   const advertisementAddressLat = LAT_LANG_DEFAULT.lat.toFixed(5);
   const advertisementAddressLng = LAT_LANG_DEFAULT.lng.toFixed(5);
@@ -64,8 +66,11 @@ const setDefaultPinMarker = () => {
     lng: LAT_LANG_DEFAULT.lng,
   });
 };
-//////////////////////////////////////////////////////////////////////////////////////////////////
+
 const generateAdvertisements = (similarAdvertisements) => {
+  for(var i = 0; i < markers.length; i++){
+    myMap.removeLayer(markers[i]);
+  }
   getFilteredAdvertisements(similarAdvertisements)
     .forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}, location: {lat, lng}}) => {
       const similarAdvertisementTemplate = document.querySelector('#card')
@@ -148,10 +153,10 @@ const generateAdvertisements = (similarAdvertisements) => {
           icon,
         },
       );
-
       marker
         .addTo(myMap)
         .bindPopup(advertisementElement);
+      markers.push(marker);
     });
 };
 

@@ -5,7 +5,7 @@ import {getValueTypeOffer} from './utils.js';
 import {getFilteredAdvertisements} from './filter.js';
 
 const advertisementAddress = document.querySelector('#address');
-const markers = []
+const markers = [];
 
 //Форма неактивна до загрузки карты и отрисовки объявлений
 formInactiveConditionHandler();
@@ -68,8 +68,8 @@ const setDefaultPinMarker = () => {
 };
 
 const generateAdvertisements = (similarAdvertisements) => {
-  for(var i = 0; i < markers.length; i++){
-    myMap.removeLayer(markers[i]);
+  for(let index = 0; index < markers.length; index++){
+    myMap.removeLayer(markers[index]);
   }
   getFilteredAdvertisements(similarAdvertisements)
     .forEach(({offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}, author: {avatar}, location: {lat, lng}}) => {

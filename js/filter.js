@@ -6,13 +6,9 @@ const housingPrice = mapFiltersForm.querySelector('#housing-price');
 const housingRooms = mapFiltersForm.querySelector('#housing-rooms');
 const housingGuests = mapFiltersForm.querySelector('#housing-guests');
 
-const checkType = ({offer}) => {
-  return (housingType.value === offer.type || housingType.value === DEFAULT_CONTROL_VALUE)
-}
+const checkType = ({offer}) => housingType.value === offer.type || housingType.value === DEFAULT_CONTROL_VALUE;
 
-const checkRooms = ({offer}) => {
-  return (parseInt(housingRooms.value) === offer.rooms || housingRooms.value === DEFAULT_CONTROL_VALUE);
-};
+const checkRooms = ({offer}) => parseInt(housingRooms.value, 10) === offer.rooms || housingRooms.value === DEFAULT_CONTROL_VALUE;
 
 const checkPrice = ({offer}) => {
   switch (housingPrice.value) {
@@ -27,14 +23,14 @@ const checkPrice = ({offer}) => {
 const checkFeatures = ({offer}) => {
   const checkedFeatures = Array.from(mapFiltersForm.querySelectorAll('.map__checkbox:checked'));
   return checkedFeatures.every((feature) => {
+    if (offer.features === undefined) {
+      offer.features = [];
+    }
     return offer.features.includes(feature.value);
   });
 };
 
-
-const checkGuests = ({offer}) => {
-  return (parseInt(housingGuests.value) === offer.guests || housingGuests.value === DEFAULT_CONTROL_VALUE);
-};
+const checkGuests = ({offer}) => parseInt(housingGuests.value, 10) === offer.guests || housingGuests.value === DEFAULT_CONTROL_VALUE;
 
 const checkEveryFilter = (offer) => {
   const checks = [
@@ -45,9 +41,7 @@ const checkEveryFilter = (offer) => {
     checkFeatures,
   ];
 
-  return checks.every((check) => {
-    return check(offer);
-  });
+  return checks.every((check) => check(offer));
 };
 
 const setFiltersFormChange = (cb) => {

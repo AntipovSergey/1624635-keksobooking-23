@@ -4,9 +4,18 @@ import {sendData} from './api.js';
 import {resetForm} from './form-condition.js';
 import {setDefaultAddressLatLng, setDefaultPinMarker} from './create-map.js';
 
-//Валидация поля с вводом заголовка объявления
 const advertisementTitle = document.querySelector('#title');
+const typeOfAppartments = document.querySelector('#type');
+const advertisementPricePerNight = document.querySelector('#price');
+let minPrice;
+const advertisementRoomNumber = document.querySelector('#room_number');
+const advertisementCapacity = document.querySelector('#capacity');
+const checkInInputElement = document.querySelector('#timein');
+const checkOutInputElement = document.querySelector('#timeout');
+const advertisementAddressField = document.querySelector('#address');
+const advertisementForm = document.querySelector('.ad-form');
 
+//Валидация поля с вводом заголовка объявления
 advertisementTitle.addEventListener('input', (evt) => {
   const valueLength = advertisementTitle.value.length;
   if (valueLength < MIN_NAME_LENGTH) {
@@ -21,10 +30,6 @@ advertisementTitle.addEventListener('input', (evt) => {
 });
 
 //Валидация поля с выбором типа жилья и вводом цены за ночь
-const typeOfAppartments = document.querySelector('#type');
-const advertisementPricePerNight = document.querySelector('#price');
-let minPrice;
-
 typeOfAppartments.addEventListener('change', () => {
   if (typeOfAppartments.value === 'bungalow') {
     minPrice = PRICE_VALUES.bungalow;
@@ -59,9 +64,6 @@ advertisementPricePerNight.addEventListener('input', (evt) => {
 });
 
 //Валидация поля с выбором количетва комнат
-const advertisementRoomNumber = document.querySelector('#room_number');
-const advertisementCapacity = document.querySelector('#capacity');
-
 for (let index = 0; index < advertisementCapacity.options.length; index++) {
   advertisementCapacity.options[index].setAttribute('disabled', true);
 }
@@ -91,9 +93,6 @@ advertisementRoomNumber.addEventListener('click', () => {
 });
 
 //Валидация поля с выбором даты заезда/выезда
-const checkInInputElement = document.querySelector('#timein');
-const checkOutInputElement = document.querySelector('#timeout');
-
 checkInInputElement.addEventListener('change',  () => {
   checkOutInputElement.selectedIndex = checkInInputElement.selectedIndex;
 });
@@ -101,8 +100,6 @@ checkOutInputElement.addEventListener('change',  () => {
   checkInInputElement.selectedIndex = checkOutInputElement.selectedIndex;
 });
 //Валидация поля с выбором адреса
-const advertisementAddressField = document.querySelector('#address');
-
 advertisementAddressField.addEventListener('input', (evt) => {
   const advertisementAddress = advertisementAddressField.value;
   if (advertisementAddress.length === 0) {
@@ -110,7 +107,6 @@ advertisementAddressField.addEventListener('input', (evt) => {
   }
 });
 
-const advertisementForm = document.querySelector('.ad-form');
 const setUserFormSubmit = (onSuccess, onFail) => {
   advertisementForm.addEventListener('submit', (evt) => {
     evt.preventDefault();

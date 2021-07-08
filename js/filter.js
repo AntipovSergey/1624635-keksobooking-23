@@ -50,9 +50,7 @@ const setFiltersFormChange = (cb) => {
   });
 };
 
-const getFilteredAdvertisements = (offers) => {
-  const filteredOffers = offers.filter(checkEveryFilter).slice(0, SIMILAR_ADVERTISEMENTS);
-  return filteredOffers;
-};
+const getFilteredAdvertisements = (offers) => offers.filter(checkEveryFilter).slice(0, SIMILAR_ADVERTISEMENTS);
+
 
 export {getFilteredAdvertisements, setFiltersFormChange};

@@ -3,7 +3,7 @@ import {ALERT_SHOW_TIME} from './data.js';
 const map = document.querySelector('.map');
 
 //Для написания данной функции воспользовался кодом с сайта MDN
-function getRandomInteger(min, max) {
+const getRandomInteger = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   if (max <= min) {
@@ -12,18 +12,6 @@ function getRandomInteger(min, max) {
 
   if (min >= 0) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  return 'Диапазон может быть только положительный, включая ноль!';
-}
-
-//Для написания данной функции воспользовался кодом с сайта MDN
-const getRandomFloat = (min, max, float) => {
-  if (max <= min) {
-    return 'Максимальное значение должно быть больше минимального!';
-  }
-
-  if (min >= 0) {
-    return Number((Math.random() * (max - min + 1) + min).toFixed(float));
   }
   return 'Диапазон может быть только положительный, включая ноль!';
 };
@@ -126,4 +114,4 @@ const debounce = (fn, ms) => {
   };
 };
 
-export {getRandomInteger, getRandomFloat, shuffle, getRandomArrayElement, getValueTypeOffer, showAlert, showSuccessMessage, showErrorMessage, debounce};
+export {shuffle, getRandomArrayElement, getValueTypeOffer, showAlert, showSuccessMessage, showErrorMessage, debounce};

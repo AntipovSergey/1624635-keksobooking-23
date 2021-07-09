@@ -98,7 +98,7 @@ const generateAdvertisements = (similarAdvertisements) => {
         }
       };
       const createFeatures = (element, featuresArray) => {
-        if(features) {
+        if(featuresArray) {
           element.insertAdjacentHTML('beforeend', featuresArray.map((feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join(''));
         } else {
           element = [];

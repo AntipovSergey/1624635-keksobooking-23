@@ -5,7 +5,7 @@ import {resetForm} from './form-condition.js';
 import {setDefaultAddressLatLng, setDefaultPinMarker} from './create-map.js';
 
 const advertisementTitle = document.querySelector('#title');
-const typeOfAppartments = document.querySelector('#type');
+const typeOfApartments = document.querySelector('#type');
 const advertisementPricePerNight = document.querySelector('#price');
 let minPrice;
 const advertisementRoomNumber = document.querySelector('#room_number');
@@ -30,20 +30,20 @@ advertisementTitle.addEventListener('input', (evt) => {
 });
 
 //Валидация поля с выбором типа жилья и вводом цены за ночь
-typeOfAppartments.addEventListener('change', () => {
-  if (typeOfAppartments.value === 'bungalow') {
+typeOfApartments.addEventListener('change', () => {
+  if (typeOfApartments.value === 'bungalow') {
     minPrice = PRICE_VALUES.bungalow;
     advertisementPricePerNight.placeholder = minPrice;
-  } else if (typeOfAppartments.value === 'flat') {
+  } else if (typeOfApartments.value === 'flat') {
     minPrice = PRICE_VALUES.flat;
     advertisementPricePerNight.placeholder = minPrice;
-  } else if (typeOfAppartments.value === 'hotel') {
+  } else if (typeOfApartments.value === 'hotel') {
     minPrice = PRICE_VALUES.hotel;
     advertisementPricePerNight.placeholder = minPrice;
-  } else if (typeOfAppartments.value === 'house') {
+  } else if (typeOfApartments.value === 'house') {
     minPrice = PRICE_VALUES.house;
     advertisementPricePerNight.placeholder = minPrice;
-  } else if (typeOfAppartments.value === 'palace') {
+  } else if (typeOfApartments.value === 'palace') {
     minPrice = PRICE_VALUES.palace;
     advertisementPricePerNight.placeholder = minPrice;
   }

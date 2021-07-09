@@ -17,11 +17,11 @@ const formInactiveConditionHandler = () => {
 const formActiveConditionHandler = () => {
   advertisementForm.classList.remove('ad-form--disabled');
   for (let index = 0; index < advertisementFormElements.length; index++) {
-    advertisementFormElements[index].removeAttribute('disabled', 'disabled');
+    advertisementFormElements[index].removeAttribute('disabled');
   }
   advertisementMap.classList.remove('ad-form--disabled');
   for (let index = 0; index <  advertisementMapElements.length; index++) {
-    advertisementMapElements[index].removeAttribute('disabled', 'disabled');
+    advertisementMapElements[index].removeAttribute('disabled');
   }
 };
 

@@ -97,13 +97,21 @@ const generateAdvertisements = (similarAdvertisements) => {
           });
         }
       };
+      const createFeatures = (element, featuresArray) => {
+        if(features) {
+          element.insertAdjacentHTML('beforeend', featuresArray.map((feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join(''));
+        } else {
+          element = [];
+        }
+      };
       advertisementElement.querySelector('.popup__title').textContent = title;
       advertisementElement.querySelector('.popup__text--address').textContent = `${lat.toFixed(5)} ${lng.toFixed(5)}`;
       advertisementElement.querySelector('.popup__text--price').textContent = `${price}₽/ночь`;
       advertisementElement.querySelector('.popup__type').textContent = getValueTypeOffer(type);
       advertisementElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${  guests  } гостей`;
       advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
-      advertisementElement.querySelector('.popup__features').textContent = features;
+      advertisementElement.querySelector('.popup__features').innerHTML = '';
+      createFeatures(advertisementElement.querySelector('.popup__features'), features);
       advertisementElement.querySelector('.popup__description').textContent = description;
       createPopupImage(photos, offerPhotos);
       advertisementElement.querySelector('.popup__avatar').src = avatar;

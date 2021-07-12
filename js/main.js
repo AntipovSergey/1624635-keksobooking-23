@@ -4,6 +4,7 @@ import './form-condition.js';
 import './create-map.js';
 import './api.js';
 import './filter.js';
+import './avatar.js';
 import {setUserFormSubmit} from './form.js';
 import {resetForm} from './form-condition.js';
 import {getData} from './api.js';
